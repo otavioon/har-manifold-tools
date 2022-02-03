@@ -1,0 +1,1 @@
+docker run --gpus all -it --detach --rm  -e HOME=`pwd` -e SHELL="/bin/bash" -p 8888:8888 -w `pwd` -v`pwd`:`pwd` -u $(id -u ${USER}):$(id -g ${USER}) hiaac4-full:latest python -m jupyterlab --port 8888 --no-browser --ip='0.0.0.0' --NotebookApp.token='' --NotebookApp.password=''
