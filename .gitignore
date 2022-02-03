@@ -3,7 +3,6 @@
 *__pycache__*
 .vscode/
 **/build/
-**/data/*
 **/dist/
 **/.bash_history/
 **/.cache/
@@ -17,6 +16,9 @@
 **/old/
 **/outputs/
 **/.vscode-server/
+
+!data/
+data/*
 
 # ignore these files
 *.pyc
