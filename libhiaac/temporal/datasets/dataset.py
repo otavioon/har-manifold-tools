@@ -1,8 +1,8 @@
-from ctypes import pointer
 from typing import Tuple, Callable, Optional, Dict, Sequence, Any, List
 
 import numpy as np
-from libhiaac.utils.dataset import Dataset
+from sklearn import datasets
+from libhiaac.utils.dataset import DataLoader, Dataset
 from libhiaac.utils.attribute_dict import AttributeDict
 
 
@@ -35,8 +35,6 @@ class TemporalSample:
     def __len__(self) -> int:
         return len(self.timestamps)
 
-
-
 class TemporalDataset(Dataset):
     def __init__(
         self,
@@ -55,6 +53,7 @@ class TemporalDataset(Dataset):
 
     def __len__(self) -> int:
         raise NotImplementedError
+
 
 class MultiModalTemporalDataset(TemporalDataset):
     def __getitem__(self, index: int) -> AttributeDict:

@@ -310,7 +310,6 @@ class TimeDomainSubsamplesKuHar(MultiModalTemporalDataset):
     def __len__(self) -> int:
         return len(self.values)
 
-
     def __str__(self):
         return f"KuHar Dataset at: '{self.dataset_path}'"
 
@@ -375,6 +374,12 @@ class BalancedTimeDomainKuHar(MultiModalTemporalDataset):
         # Read metadata
         metadata = self.values.iloc[index, self.sample_size*6:self.sample_size*6+9].values.tolist()
 
+        # TODO: not a good bug fix...
+        if float(metadata[2]) == 0:
+            metadata[2] = metadata[0]+self.sample_size/100
+        if float(metadata[3]) == 0:
+            metadata[3] = metadata[1]+self.sample_size/100
+            
         # Read accelerometer data
         accel = self.values.iloc[index, 0:self.sample_size*3].values
         accel = np.stack([accel[0:self.sample_size], accel[self.sample_size:self.sample_size*2], accel[self.sample_size*2:self.sample_size*3]], axis=1)
