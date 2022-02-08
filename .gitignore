@@ -17,6 +17,7 @@
 **/outputs/
 **/.vscode-server/
 **/.gnupg/
+**/.ssh/
 
 !data/
 data/*
