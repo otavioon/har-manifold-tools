@@ -56,5 +56,29 @@ class TemporalDataset(Dataset):
 
 
 class MultiModalTemporalDataset(TemporalDataset):
+    def __init__(
+        self,
+        dataset_path: str,
+        transforms: Optional[Callable] = None,
+        transforms_target: Optional[Callable] = None,
+        download: bool = False,
+        to_all_transform: Optional[Callable] = None,
+        to_all_key: str = None
+    ):
+        super().__init__(
+            dataset_path=dataset_path, 
+            transforms=transforms,
+            transforms_target=transforms_target,
+            download=download
+        )
+        self.to_all_transform = to_all_transform
+        self.to_all_key = to_all_key
+        
+        if self.to_all_transform is not None:
+            if self.to_all_key is None:
+                raise ValueError("If to_all_transform is passed, to_all_key must be set")
+    
     def __getitem__(self, index: int) -> AttributeDict:
         raise NotImplementedError
+        
+

@@ -32,7 +32,6 @@ class MultiComposer:
         else:
             return datas
         
-
 class SpectrogramExtractor:
     def __init__(self, fs: float, nperseg: int, nooverlap: int, 
                  spectrogram_combination_method=sum,
@@ -80,3 +79,10 @@ class SpectrogramColorMesh:
         data = data.reshape(fig.canvas.get_width_height()[::-1] + (3,))
         plt.close("all")
         return data
+    
+class FFT1D:       
+    def __call__(self, value):
+        vals = []
+        for i in range(value.shape[1]):
+            vals.append(np.abs(np.fft.fft(value[:, i])))
+        return np.stack(vals, axis=1)

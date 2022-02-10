@@ -207,18 +207,30 @@ class RawKuHar(MultiModalTemporalDataset):
             "serial": int(data["serial"].unique().tolist()[0])
         }
         
+        metadata = {
+            "class": int(metadata[0]),
+            "serial": int(metadata[2]),
+            "user": "unknown"
+        }
+
         if self.transforms is not None:
             accel_sample = self.transforms(accel_sample)
             gyro_sample = self.transforms(gyro_sample)
-                
+            
         if self.transforms_target is not None:
             metadata = self.transforms_target(metadata)
-        
-        return AttributeDict({
+            
+        attributes = AttributeDict({
             "accelerometer": accel_sample,
             "gyroscope": gyro_sample,
             "meta": metadata
         })
+            
+        if self.to_all_transform is not None:
+            result = self.to_all_transform([accel_sample, gyro_sample])
+            attributes[self.to_all_key] = result
+        
+        return attributes
 
     def __len__(self) -> int:
         return len(self.metadata_df)
@@ -297,15 +309,21 @@ class TimeDomainSubsamplesKuHar(MultiModalTemporalDataset):
         if self.transforms is not None:
             accel_sample = self.transforms(accel_sample)
             gyro_sample = self.transforms(gyro_sample)
-                
+            
         if self.transforms_target is not None:
             metadata = self.transforms_target(metadata)
-
-        return AttributeDict({
+            
+        attributes = AttributeDict({
             "accelerometer": accel_sample,
             "gyroscope": gyro_sample,
             "meta": metadata
         })
+            
+        if self.to_all_transform is not None:
+            result = self.to_all_transform([accel_sample, gyro_sample])
+            attributes[self.to_all_key] = result
+        
+        return attributes
 
     def __len__(self) -> int:
         return len(self.values)
@@ -330,11 +348,15 @@ class BalancedTimeDomainKuHar(MultiModalTemporalDataset):
         transforms: Optional[Callable] = None,
         transforms_target: Optional[Callable] = None,
         download: bool = False,
+        to_all_transform: Optional[Callable] = None,
+        to_all_key: str = None,
         mode: str = "train",
         sample_size: int = 300
+        
     ):
         super().__init__(dataset_path=dataset_path, transforms=transforms,
-            transforms_target=transforms_target, download=download
+            transforms_target=transforms_target, download=download,
+            to_all_transform=to_all_transform, to_all_key=to_all_key
         )
         
         self.mode = mode
@@ -401,15 +423,21 @@ class BalancedTimeDomainKuHar(MultiModalTemporalDataset):
         if self.transforms is not None:
             accel_sample = self.transforms(accel_sample)
             gyro_sample = self.transforms(gyro_sample)
-                
+            
         if self.transforms_target is not None:
             metadata = self.transforms_target(metadata)
-
-        return AttributeDict({
+            
+        attributes = AttributeDict({
             "accelerometer": accel_sample,
             "gyroscope": gyro_sample,
             "meta": metadata
         })
+            
+        if self.to_all_transform is not None:
+            result = self.to_all_transform([accel_sample, gyro_sample])
+            attributes[self.to_all_key] = result
+        
+        return attributes
 
     def __len__(self) -> int:
         return len(self.values)
