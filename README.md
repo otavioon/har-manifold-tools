@@ -2,9 +2,9 @@
 
 This repository contains all tools developed for H.IAAC-M4
 
-1. [Install Instructions](instructions)
+Check some tutorials at tutorials directory!
 
-## Useful Material
+## Useful Material to Check if You are Not to Familiar...
 
 1. Numpy and Matplotlib tutorial: https://cs231n.github.io/python-numpy-tutorial/
 
