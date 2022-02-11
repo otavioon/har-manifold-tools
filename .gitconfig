@@ -2,4 +2,4 @@
 	email = otavio.napoli@gmail.com
 	name = Otavio Napoli
 [credential]
-	helper = "!f() { /home/lopani/Doutorado/har-manifold-tools/.vscode-server/bin/5554b12acf27056905806867f251c859323ff7e9/node /tmp/vscode-remote-containers-7e90b8005bf9339390a20c5c90a72cfce9ed44c3.js $*; }; f"
+	helper = "!f() { /home/lopani/Doutorado/har-manifold-tools/.vscode-server/bin/f80445acd5a3dadef24aa209168452a3d97cc326/node /tmp/vscode-remote-containers-2c04df8e7c2789766796f26981dc47982ce701ad.js $*; }; f"

@@ -33,3 +33,12 @@ def get_model(model_name: str, **kwargs):
 def manifold_fit_transform(X: np.ndarray, model_name: str, **model_kwargs):
     model = get_model(model_name, **model_kwargs)
     return model.fit_transform(X)
+
+class ManifoldFitTransform:
+    def __init__(self, model_name: str, **model_kwargs) -> None:
+        self.model_name = model_name
+        self.model_kwargs = model_kwargs
+        self.model = get_model(model_name=model_name, **model_kwargs)
+
+    def __call__(self, X):
+        return self.model.fit_transform(X)
